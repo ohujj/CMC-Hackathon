@@ -26,8 +26,8 @@ jobs:
 
       - name: Docker 이미지 빌드 및 push
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/cmc-hackerton .
-          docker push ${{ secrets.DOCKER_USERNAME }}/cmc-hackerton
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/cmc-hackathon .
+          docker push ${{ secrets.DOCKER_USERNAME }}/cmc-hackathon
 
       - name: EC2 배포
         uses: appleboy/ssh-action@master
@@ -36,7 +36,16 @@ jobs:
           username: ec2-user
           key: ${{ secrets.EC2_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKER_USERNAME }}/cmc-hackerton
-            docker stop cmc-hackerton || true
-            docker rm cmc-hackerton || true
-            docker run -d --name cmc-hackerton -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/cmc-hackerton
+            cd /home/ec2-user/your-repo
+
+            git pull
+
+            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} \
+            MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
+            MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} \
+            docker compose pull
+
+            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} \
+            MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
+            MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} \
+            docker compose up -d

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  app:
+    image: ${DOCKER_USERNAME}/cmc-hackathon
+    container_name: cmc-hackathon
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    restart: always
+
+  db:
+    image: mysql:8.0
+    container_name: cmc-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      TZ: Asia/Seoul
+    volumes:
+      - mysql-data:/var/lib/mysql
+    restart: always
+
+volumes:
+  mysql-data:
