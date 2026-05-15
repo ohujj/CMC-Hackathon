@@ -40,7 +40,8 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ec2-user/CMC-Hackathon
-            git pull
+            git fetch origin
+            git reset --hard origin/main
             docker-compose --env-file .env pull
             docker-compose --env-file .env down
             docker-compose --env-file .env up -d
