@@ -19,4 +19,8 @@ public class ApiResponse<T> {
     public static ApiResponse<Void> fail(ErrorCode errorCode) {
         return new ApiResponse<>(false, null, errorCode.getMessage());
     }
+
+    public static ApiResponse<Void> success() {
+        return new ApiResponse<>(true, null, null);
+    }
 }
