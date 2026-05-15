@@ -40,15 +40,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ec2-user/CMC-Hackathon
-
             git pull
-
-            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} \
-            MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
-            MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} \
-            docker-compose pull
-
-            DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} \
-            MYSQL_ROOT_PASSWORD=${{ secrets.MYSQL_ROOT_PASSWORD }} \
-            MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }} \
-            docker-compose up -d
+            docker-compose --env-file .env pull
+            docker-compose --env-file .env down
+            docker-compose --env-file .env up -d
