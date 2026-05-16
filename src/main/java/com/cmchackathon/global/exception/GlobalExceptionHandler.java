@@ -10,6 +10,7 @@ import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -43,6 +44,13 @@ public class GlobalExceptionHandler {
         log.warn("[Validation] {} {} - {}", req.getMethod(), req.getRequestURI(), errors);
         ErrorCode ec = ErrorCode.INVALID_INPUT;
         return ResponseEntity.status(ec.getStatus()).body(ApiResponse.fail(ec.getCode(), ec.getMessage(), errors));
+    }
+
+    @ExceptionHandler(JpaSystemException.class)
+    public ResponseEntity<ApiResponse<Void>> handleJpaSystem(JpaSystemException e, HttpServletRequest req) {
+        log.warn("[JpaSystem] {} {} - {}", req.getMethod(), req.getRequestURI(), e.getMostSpecificCause().getMessage());
+        ErrorCode ec = ErrorCode.INVALID_INPUT;
+        return ResponseEntity.status(ec.getStatus()).body(ApiResponse.fail(ec.getCode(), "데이터 처리 중 오류가 발생했습니다."));
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
