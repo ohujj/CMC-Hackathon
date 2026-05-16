@@ -27,11 +27,15 @@ for i in $(seq 1 40); do
 done
 [ "$STATUS" = "healthy" ] || { echo "ERR: $NEXT not healthy"; docker logs --tail=50 cmc-hackathon-${NEXT}; exit 1; }
 
-# 4) Traefik 라우팅 전환
-sed -i "s|cmc-hackathon-${CURRENT}|cmc-hackathon-${NEXT}|g" traefik/dynamic.yml
-echo ">>> switched to $NEXT"
+# 4) Traefik 라우팅 전환 (atomic write + traefik restart로 확실히 reload)
+TMP=$(mktemp)
+sed "s|cmc-hackathon-${CURRENT}|cmc-hackathon-${NEXT}|g" traefik/dynamic.yml > "$TMP"
+mv "$TMP" traefik/dynamic.yml
+docker restart traefik >/dev/null
+echo ">>> switched to $NEXT (traefik reloaded)"
 
-sleep 3
+# Traefik이 새 backend 잡을 시간 + healthcheck pass
+sleep 8
 
 # 5) 구 슬롯 정리
 docker-compose -f docker-compose.${CURRENT}.yml --env-file .env down

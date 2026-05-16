@@ -6,8 +6,7 @@ services:
       - "8080:80"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
-      - ./traefik/dynamic.yml:/etc/traefik/dynamic.yml
+      - ./traefik:/etc/traefik:ro
     networks:
       - cmc-net
     restart: always
