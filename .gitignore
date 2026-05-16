@@ -37,3 +37,8 @@ out/
 .vscode/
 src/main/resources/application.yml
 logs/
+.gstack/
+
+### Secrets ###
+.env
+terraform/terraform.tfvars
