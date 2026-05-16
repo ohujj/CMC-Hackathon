@@ -5,13 +5,13 @@
 
 ## 🔗 Links
 
-| 항목               | URL                                                      |
-| ------------------ | -------------------------------------------------------- |
-| 🌐 Web (Frontend)  | https://filmo.log8.kr · https://web-agentgram.vercel.app |
-| 📡 API Base        | https://filmo-api.log8.kr                                |
-| 📚 Swagger UI      | https://filmo-api.log8.kr/swagger-ui/index.html          |
-| 🗂 API Docs (JSON) | https://filmo-api.log8.kr/v3/api-docs                    |
-| 🗃 ERD             | https://www.erdcloud.com/p/g8Bmpb4XjALXSo8sc             |
+| 항목               | URL                                             |
+| ------------------ | ----------------------------------------------- |
+| 🌐 Web (Frontend)  | https://filmo.log8.kr                           |
+| 📡 API Base        | https://filmo-api.log8.kr                       |
+| 📚 Swagger UI      | https://filmo-api.log8.kr/swagger-ui/index.html |
+| 🗂 API Docs (JSON) | https://filmo-api.log8.kr/v3/api-docs           |
+| 🗃 ERD             | https://www.erdcloud.com/p/g8Bmpb4XjALXSo8sc    |
 
 ## 🧩 Tech Stack
 
@@ -30,14 +30,30 @@
 ![Filmo Service Architecture](docs/architecture.png)
 
 ```
-Client ──HTTPS──► Cloudflare Tunnel ──► EC2 (ap-northeast-2)
-                                         └─ Traefik :80
-                                              ├─► App BLUE  (Spring Boot :8080)
-                                              └─► App GREEN (Spring Boot :8080)
-                                                       └─► MySQL 8.0
+iOS / Android ──HTTPS──► filmo-api.log8.kr ──► Cloudflare Tunnel (cloudflared)
+                                                       │
+                                                       ▼
+                                            EC2 (ap-northeast-2)
+                                                 └─ Traefik :80
+                                                      ├─► App BLUE  (Spring Boot :8080)
+                                                      └─► App GREEN (Spring Boot :8080)
+                                                               └─► MySQL 8.0
 GitHub ──push main──► GitHub Actions ──► Docker Hub ──SSH──► EC2 (blue-green swap)
-Vercel (Next.js) ──► filmo-api.log8.kr
 ```
+
+## 🗃 ERD
+
+![Filmo ERD](docs/erd.png)
+
+> 인터랙티브 ERD: https://www.erdcloud.com/p/g8Bmpb4XjALXSo8sc
+
+| Table           | 설명                                                           |
+| --------------- | -------------------------------------------------------------- |
+| `users`         | 사용자 계정 (loginId/password/nickname/intro, soft delete)     |
+| `movie`         | 영화 메타데이터 (indieground crawl)                            |
+| `theater`       | 영화관/스크린 정보 (영화관입장권통합전산망)                    |
+| `ticket`        | 사용자가 기록한 관람 티켓 (user × movie, review·날짜·공유여부) |
+| `saved_theater` | 사용자가 저장한 영화관 (user × theater 다대다 조인)            |
 
 ## 📦 Project Structure
 
