@@ -1,5 +1,6 @@
 package com.cmchackathon.domain.comment.controller;
 
+import com.cmchackathon.domain.comment.dto.CommentCreateRequest;
 import com.cmchackathon.domain.comment.service.CommentService;
 import com.cmchackathon.global.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,14 +8,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Comment", description = "댓글 API")
 @RestController
-@RequestMapping("/api/comments")
+    @RequestMapping("/api/comments")
 @RequiredArgsConstructor
 public class CommentController {
 
@@ -26,6 +24,16 @@ public class CommentController {
             @AuthenticationPrincipal Long userId,
             @PathVariable Long commentId) {
         commentService.deleteComment(userId, commentId);
+        return ResponseEntity.ok(ApiResponse.success());
+    }
+
+    @Operation(summary = "댓글 등록")
+    @PostMapping("/{ticketId}")
+    public ResponseEntity<ApiResponse<Void>> createComment(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable Long ticketId,
+            @RequestBody CommentCreateRequest request) {
+        commentService.createComment(userId, ticketId, request.getContent());
         return ResponseEntity.ok(ApiResponse.success());
     }
 }
