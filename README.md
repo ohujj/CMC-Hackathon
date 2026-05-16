@@ -42,10 +42,8 @@ GitHub ──push main──► GitHub Actions ──► Docker Hub ──SSH─
 ```
 
 ## 🗃 ERD
+<img width="1283" height="1652" alt="Untitled" src="https://github.com/user-attachments/assets/44a6dd30-91f3-4a87-bad7-d256af594fd6" />
 
-![Filmo ERD](docs/erd.png)
-
-> 인터랙티브 ERD: https://www.erdcloud.com/p/g8Bmpb4XjALXSo8sc
 
 | Table           | 설명                                                           |
 | --------------- | -------------------------------------------------------------- |
