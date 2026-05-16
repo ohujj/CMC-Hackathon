@@ -1,6 +1,8 @@
 package com.cmchackathon.domain.movie.controller;
 
 import com.cmchackathon.global.response.ApiResponse;
+import com.cmchackathon.global.exception.BusinessException;
+import com.cmchackathon.global.exception.ErrorCode;
 import com.cmchackathon.domain.movie.dto.MovieDetailResponse;
 import com.cmchackathon.domain.movie.dto.MovieListResponse;
 import com.cmchackathon.domain.movie.service.MovieService;
@@ -73,6 +75,16 @@ public class MovieController {
         conn.setReadTimeout(5000);
         conn.setRequestProperty("Referer", "https://indieground.kr/indie/dbList.do");
         conn.setRequestProperty("User-Agent", "Mozilla/5.0");
+        int status;
+        try {
+            status = conn.getResponseCode();
+        } catch (java.io.IOException e) {
+            throw new BusinessException(ErrorCode.MOVIE_NOT_FOUND);
+        }
+        if (status < 200 || status >= 300) {
+            conn.disconnect();
+            throw new BusinessException(ErrorCode.MOVIE_NOT_FOUND);
+        }
         response.setContentType("image/jpeg");
         try (var in = conn.getInputStream(); var out = response.getOutputStream()) {
             in.transferTo(out);
