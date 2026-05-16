@@ -11,7 +11,7 @@
 | 📡 API Base        | https://filmo-api.log8.kr                       |
 | 📚 Swagger UI      | https://filmo-api.log8.kr/swagger-ui/index.html |
 | 🗂 API Docs (JSON) | https://filmo-api.log8.kr/v3/api-docs           |
-| 🗃 ERD             | https://www.erdcloud.com/p/g8Bmpb4XjALXSo8sc    |
+| 🗃 ERD             | https://dbdiagram.io/d/6a08ae7b9f1f8ec47b2e1355 |
 
 ## 🧩 Tech Stack
 
@@ -52,6 +52,9 @@ GitHub ──push main──► GitHub Actions ──► Docker Hub ──SSH─
 | `theater`       | 영화관/스크린 정보 (영화관입장권통합전산망)                    |
 | `ticket`        | 사용자가 기록한 관람 티켓 (user × movie, review·날짜·공유여부) |
 | `saved_theater` | 사용자가 저장한 영화관 (user × theater 다대다 조인)            |
+| `collection`    | 사용자가 저장한 티켓 (user × ticket)                       |
+| `likes`         | 티켓 좋아요 (user × ticket)                               |
+| `comment`       | 티켓 댓글 (user × ticket, soft delete)                   |
 
 ## 📦 Project Structure
 
