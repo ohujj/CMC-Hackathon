@@ -1,6 +1,7 @@
 package com.cmchackathon.domain.ticket.controller;
 
 import com.cmchackathon.domain.ticket.dto.TicketCreateRequest;
+import com.cmchackathon.domain.ticket.dto.TicketDetailResponse;
 import com.cmchackathon.domain.ticket.dto.TicketResponse;
 import com.cmchackathon.domain.ticket.dto.TicketUpdateRequest;
 import com.cmchackathon.domain.ticket.service.TicketService;
@@ -60,9 +61,9 @@ public class TicketController {
 
     @Operation(summary = "티켓 상세 조회")
     @GetMapping("/{ticketId}")
-    public ResponseEntity<ApiResponse<TicketResponse>> getTicket(
+    public ResponseEntity<ApiResponse<TicketDetailResponse>> getTicketDetail(
             @AuthenticationPrincipal Long userId,
             @PathVariable Long ticketId) {
-        return ResponseEntity.ok(ApiResponse.success(ticketService.getTicket(userId, ticketId)));
+        return ResponseEntity.ok(ApiResponse.success(ticketService.getTicketDetail(userId, ticketId)));
     }
 }

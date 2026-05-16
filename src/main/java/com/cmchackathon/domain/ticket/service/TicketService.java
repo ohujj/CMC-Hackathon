@@ -1,8 +1,13 @@
 package com.cmchackathon.domain.ticket.service;
 
+import com.cmchackathon.domain.collection.repository.CollectionRepository;
+import com.cmchackathon.domain.comment.dto.CommentResponse;
+import com.cmchackathon.domain.comment.repository.CommentRepository;
+import com.cmchackathon.domain.like.repository.LikeRepository;
 import com.cmchackathon.domain.movie.entity.Movie;
 import com.cmchackathon.domain.movie.repository.MovieRepository;
 import com.cmchackathon.domain.ticket.dto.TicketCreateRequest;
+import com.cmchackathon.domain.ticket.dto.TicketDetailResponse;
 import com.cmchackathon.domain.ticket.dto.TicketResponse;
 import com.cmchackathon.domain.ticket.dto.TicketUpdateRequest;
 import com.cmchackathon.domain.ticket.entity.Ticket;
@@ -25,6 +30,10 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
+
+    private final LikeRepository likeRepository;
+    private final CommentRepository commentRepository;
+    private final CollectionRepository collectionRepository;
 
     public void createTicket(Long userId, TicketCreateRequest request) {
         User user = userRepository.findById(userId)
@@ -76,15 +85,24 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public TicketResponse getTicket(Long userId, Long ticketId) {
+    public TicketDetailResponse getTicketDetail(Long userId, Long ticketId) {
         Ticket ticket = ticketRepository.findByIdAndDeletedAtIsNull(ticketId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
 
-        if (!ticket.getUser().getId().equals(userId)) {
+        if (!ticket.isShowYn() && !ticket.getUser().getId().equals(userId)) {
             throw new BusinessException(ErrorCode.FORBIDDEN);
         }
 
-        return TicketResponse.from(ticket);
+        long likeCount = likeRepository.countByTicketId(ticketId);
+        boolean isLiked = likeRepository.existsByUserIdAndTicketId(userId, ticketId);
+        boolean isCollected = collectionRepository.existsByUserIdAndTicketIdAndDeletedAtIsNull(userId, ticketId);
+
+        List<CommentResponse> comments = commentRepository.findByTicketIdAndDeletedAtIsNull(ticketId)
+                .stream()
+                .map(CommentResponse::from)
+                .toList();
+
+        return TicketDetailResponse.of(ticket, likeCount, isLiked, isCollected, comments);
     }
 
 }

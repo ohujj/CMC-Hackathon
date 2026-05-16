@@ -31,7 +31,12 @@ public enum ErrorCode {
     MOVIE_NOT_FOUND(404, 4001, "영화를 찾을 수 없습니다."),
     TICKET_NOT_FOUND(404, 5001, "티켓을 찾을 수 없습니다."),
     ALREADY_COLLECTED(409, 5002, "이미 저장된 티켓입니다."),
-    COLLECTION_NOT_FOUND(404, 5003, "저장된 티켓을 찾을 수 없습니다.");
+    COLLECTION_NOT_FOUND(404, 5003, "저장된 티켓을 찾을 수 없습니다."),
+
+    //댓글
+    COMMENT_NOT_FOUND(404, 6001, "댓글을 찾을 수 없습니다.");
+
+
 
     private final int status;
     private final int code;
