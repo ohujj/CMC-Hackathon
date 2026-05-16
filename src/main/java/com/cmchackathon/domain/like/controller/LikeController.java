@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Like", description = "좋아요 API")
+@Tag(name = "04. Like", description = "좋아요 API")
 @RestController
 @RequestMapping("/api/likes")
 @RequiredArgsConstructor

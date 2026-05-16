@@ -17,7 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-@io.swagger.v3.oas.annotations.tags.Tag(name = "05. Movie", description = "독립영화 목록 / 상세 / 포스터 프록시")
+@io.swagger.v3.oas.annotations.tags.Tag(name = "02. Movie", description = "독립영화 목록 / 상세 / 포스터 프록시")
 @RestController
 @RequestMapping("/api/movies")
 @RequiredArgsConstructor
