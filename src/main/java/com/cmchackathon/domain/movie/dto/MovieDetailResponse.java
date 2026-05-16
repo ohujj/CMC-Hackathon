@@ -37,7 +37,7 @@ public class MovieDetailResponse {
                 .genreName(movie.getGenreName())
                 .companyNm(movie.getCompanyNm())
                 .distributorNm(movie.getDistributorNm())
-                .imagePath(movie.getImagePath())
+                .imagePath(stripFolder(movie.getImagePath()))
                 .duration(movie.getDuration())
                 .rating(movie.getRating())
                 .colorType(movie.getColorType())
@@ -47,5 +47,10 @@ public class MovieDetailResponse {
                 .releaseDate(movie.getReleaseDate())
                 .keywords(movie.getKeywords())
                 .build();
+    }
+
+    private static String stripFolder(String path) {
+        if (path == null) return null;
+        return path.startsWith("fileFolder/") ? path.substring("fileFolder/".length()) : path;
     }
 }

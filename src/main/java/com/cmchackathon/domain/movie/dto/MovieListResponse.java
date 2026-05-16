@@ -23,7 +23,12 @@ public class MovieListResponse {
                 .director(movie.getDirector())
                 .productionYear(movie.getProductionYear())
                 .genreName(movie.getGenreName())
-                .imagePath(movie.getImagePath())
+                .imagePath(stripFolder(movie.getImagePath()))
                 .build();
+    }
+
+    private static String stripFolder(String path) {
+        if (path == null) return null;
+        return path.startsWith("fileFolder/") ? path.substring("fileFolder/".length()) : path;
     }
 }

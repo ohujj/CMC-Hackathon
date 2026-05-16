@@ -43,8 +43,7 @@ export async function apiFetch<T>(
 }
 
 export function imageUrl(imagePath: string): string {
-  const cleaned = imagePath.replace(/^fileFolder\//, "");
-  return `${API_BASE}/api/movies/image/${cleaned}`;
+  return `${API_BASE}/api/movies/image/${imagePath}`;
 }
 
 export { API_BASE };
