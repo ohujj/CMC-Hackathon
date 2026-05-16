@@ -6,6 +6,7 @@ import com.cmchackathon.domain.user.dto.NicknameResponse;
 import com.cmchackathon.domain.user.dto.SignupRequest;
 import com.cmchackathon.domain.user.service.UserService;
 import com.cmchackathon.global.response.ApiResponse;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -31,12 +32,14 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success(userService.login(request)));
     }
 
+    @Hidden
     @Operation(summary = "회원가입", description = "loginId / password / nickname 으로 가입하고 JWT 반환")
     @PostMapping("/signup")
     public ResponseEntity<ApiResponse<LoginResponse>> signup(@Valid @RequestBody SignupRequest request) {
         return ResponseEntity.ok(ApiResponse.success(userService.signup(request)));
     }
 
+    @Hidden
     @Operation(summary = "자동 닉네임 생성", description = "온보딩용 랜덤 닉네임 (DB 미저장)")
     @GetMapping("/nickname/random")
     public ApiResponse<NicknameResponse> randomNickname() {

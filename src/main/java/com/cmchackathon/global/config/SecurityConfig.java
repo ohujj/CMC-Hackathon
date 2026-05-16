@@ -48,8 +48,6 @@ public class SecurityConfig {
                                 "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/movies/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/theaters").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/theaters/*").permitAll()
                         // 그 외 모두 인증 필요 (save/me 등)
                         .anyRequest().authenticated())
 
