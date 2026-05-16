@@ -5,18 +5,27 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @Getter
-@RequiredArgsConstructor
 public class ApiResponse<T> {
 
     private final int code;
-    private final T data;
     private final String message;
+    private final T data;
 
-    public static ApiResponse<Void> fail(ErrorCode errorCode) {
-        return new ApiResponse<>(errorCode.getStatus(), null, errorCode.getMessage());
+    private ApiResponse(int code, String message, T data) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
     }
 
-    public static ApiResponse<Void> success() {
-        return new ApiResponse<>(200, null, null);
+    public static <T> ApiResponse<T> success(T data) {
+        return new ApiResponse<>(200, "success", data);
+    }
+
+    public static <T> ApiResponse<T> success() {
+        return new ApiResponse<>(200, "success", null);
+    }
+
+    public static <T> ApiResponse<T> fail(int code, String message) {
+        return new ApiResponse<>(code, message, null);
     }
 }
