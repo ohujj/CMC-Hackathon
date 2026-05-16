@@ -19,6 +19,6 @@ public class SavedTheaterId implements Serializable {
     @Column(name = "user_id")
     private Long userId;
 
-    @Column(name = "thea_cd", length = 20)
+    @Column(name = "thea_cd", columnDefinition = "VARCHAR(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
     private String theaCd;
 }
