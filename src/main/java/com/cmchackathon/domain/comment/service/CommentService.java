@@ -23,6 +23,10 @@ public class CommentService {
             throw new BusinessException(ErrorCode.FORBIDDEN);
         }
 
+        if (comment.getDeletedAt() != null) {
+            throw new BusinessException(ErrorCode.COMMENT_NOT_FOUND);
+        }
+
         comment.delete();
     }
 }
