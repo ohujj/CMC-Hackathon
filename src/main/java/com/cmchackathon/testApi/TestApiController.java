@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 @Tag(name = "Health", description = "서버 상태 확인 API")
 public class TestApiController {
 
-    @Operation(summary = "헬스 체크", description = "서버 정상 동작 여부 확인")
+    @Operation(summary = "GET 헬스 체크", description = "서버 정상 동작 여부 확인")
     @GetMapping("/health")
     public ResponseEntity<ApiResponse<Void>> health() {
         return ResponseEntity.ok(ApiResponse.success());
     }
 
+    @Operation(summary = "POST 헬스 체크", description = "POST요청 및 검증 확인")
     @PostMapping("/healthBody")
     public ResponseEntity<ApiResponse<Void>> healthBody(@Valid @RequestBody TestDto testDto) {
 
