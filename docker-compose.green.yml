@@ -1,0 +1,28 @@
+services:
+  app-green:
+    image: ${DOCKER_USERNAME}/cmc-hackathon
+    container_name: cmc-hackathon-green
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://cmc-mysql:3306/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - JWT_SECRET=${JWT_SECRET}
+      - JWT_EXPIRATION=${JWT_EXPIRATION}
+      - SERVER_FORWARD_HEADERS_STRATEGY=NATIVE
+    volumes:
+      - ./logs:/logs
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 30s
+    networks:
+      - cmc-net
+    restart: always
+
+networks:
+  cmc-net:
+    external: true

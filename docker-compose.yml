@@ -1,3 +1,7 @@
+# [LEGACY] 단일 컨테이너 구조. Traefik 블루그린 배포로 전환됨.
+# 현재 사용: docker-compose.db.yml / docker-compose.blue.yml / docker-compose.green.yml
+# 참고용으로만 유지.
+
 services:
   app:
     image: ${DOCKER_USERNAME}/cmc-hackathon
