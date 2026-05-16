@@ -38,7 +38,7 @@ public class MovieDetailResponse {
                 .companyNm(movie.getCompanyNm())
                 .distributorNm(movie.getDistributorNm())
                 .imagePath(stripFolder(movie.getImagePath()))
-                .duration(movie.getDuration())
+                .duration(stripSeconds(movie.getDuration()))
                 .rating(movie.getRating())
                 .colorType(movie.getColorType())
                 .synopsis(movie.getSynopsis())
@@ -47,6 +47,12 @@ public class MovieDetailResponse {
                 .releaseDate(movie.getReleaseDate())
                 .keywords(movie.getKeywords())
                 .build();
+    }
+
+    private static String stripSeconds(String duration) {
+        if (duration == null) return null;
+        int idx = duration.indexOf('분');
+        return idx >= 0 ? duration.substring(0, idx + 1) : duration;
     }
 
     private static String stripFolder(String path) {

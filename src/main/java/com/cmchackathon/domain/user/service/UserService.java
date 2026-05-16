@@ -3,6 +3,7 @@ package com.cmchackathon.domain.user.service;
 import com.cmchackathon.domain.user.dto.LoginRequest;
 import com.cmchackathon.domain.user.dto.LoginResponse;
 import com.cmchackathon.domain.user.dto.SignupRequest;
+import com.cmchackathon.domain.user.dto.UserMeResponse;
 import com.cmchackathon.domain.user.entity.User;
 import com.cmchackathon.domain.user.repository.UserRepository;
 import com.cmchackathon.global.exception.BusinessException;
@@ -63,4 +64,10 @@ public class UserService {
         return nicknameGenerator.generate();
     }
 
+    @Transactional(readOnly = true)
+    public UserMeResponse getMe(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
+        return UserMeResponse.of(user);
+    }
 }

@@ -20,7 +20,7 @@ from urllib import error, request
 
 def http(method, url, body=None, headers=None, timeout=15):
     data = json.dumps(body).encode("utf-8") if body is not None else None
-    hdrs = {"Content-Type": "application/json"}
+    hdrs = {"Content-Type": "application/json", "User-Agent": "filmo-api-test/1.0"}
     if headers:
         hdrs.update(headers)
     req = request.Request(url, data=data, method=method, headers=hdrs)
