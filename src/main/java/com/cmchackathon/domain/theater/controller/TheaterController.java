@@ -13,7 +13,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Theater", description = "독립영화관 API")
+@Tag(name = "03. Theater", description = "독립영화관 목록 / 단건 / 저장 토글")
 @RestController
 @RequestMapping("/api/theaters")
 @RequiredArgsConstructor
