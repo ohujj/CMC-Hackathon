@@ -35,11 +35,16 @@ public class CollectionService {
             throw new BusinessException(ErrorCode.ALREADY_COLLECTED);
         }
 
+
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         Ticket ticket = ticketRepository.findByIdAndDeletedAtIsNull(ticketId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
+
+        if (ticket.getUser().getId().equals(userId)) {
+            throw new BusinessException(ErrorCode.CANNOT_COLLECT_OWN_TICKET);
+        }
 
         if (!ticket.isShowYn()) {
             throw new BusinessException(ErrorCode.FORBIDDEN);

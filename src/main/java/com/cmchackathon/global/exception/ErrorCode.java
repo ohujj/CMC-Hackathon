@@ -32,6 +32,12 @@ public enum ErrorCode {
     TICKET_NOT_FOUND(404, 5001, "티켓을 찾을 수 없습니다."),
     ALREADY_COLLECTED(409, 5002, "이미 저장된 티켓입니다."),
     COLLECTION_NOT_FOUND(404, 5003, "저장된 티켓을 찾을 수 없습니다."),
+    CANNOT_COLLECT_OWN_TICKET(400, 5004, "본인 티켓은 저장할 수 없습니다."),
+
+    //조아용
+    CANNOT_LIKE_OWN_TICKET(400, 1011, "본인 티켓은 좋아요할 수 없습니다."),
+    ALREADY_LIKED(409, 1012, "이미 좋아요한 티켓입니다."),
+    LIKE_NOT_FOUND(404, 1013, "좋아요를 찾을 수 없습니다."),
 
     //댓글
     COMMENT_NOT_FOUND(404, 6001, "댓글을 찾을 수 없습니다.");
