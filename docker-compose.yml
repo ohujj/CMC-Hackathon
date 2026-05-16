@@ -1,14 +1,15 @@
 services:
   app:
-    image: ${DOCKER_USERNAME}/cmc-hackathon
+    build: .
     container_name: cmc-hackathon
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/${MYSQL_DATABASE}?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
@@ -16,6 +17,19 @@ services:
       - JWT_EXPIRATION=${JWT_EXPIRATION}
     volumes:
       - ./logs:/logs
+    restart: always
+
+  web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://${SERVER_IP}:8080
+    container_name: cmc-web
+    ports:
+      - "3000:3000"
+    depends_on:
+      - app
     restart: always
 
   db:
@@ -27,6 +41,21 @@ services:
       TZ: Asia/Seoul
     volumes:
       - mysql-data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p${MYSQL_ROOT_PASSWORD}",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     restart: always
 
 volumes:
