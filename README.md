@@ -146,6 +146,7 @@ docker compose -f docker-compose.local.yml up -d
 
 ## 👥 Team
 
-| Role    | GitHub                                       |
-| ------- | -------------------------------------------- |
-| Backend | [@hyeonwoooh](https://github.com/hyeonwoooh) |
+| Role    | GitHub                                           |
+| ------- | ------------------------------------------------ |
+| Backend | [@hyeonwoooh](https://github.com/hyeonwoooh)     |
+| Backend | [@IISweetHeartII](https://github.com/IISweetHeartII) |
