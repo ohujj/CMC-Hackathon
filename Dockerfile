@@ -7,4 +7,4 @@ RUN ./gradlew bootJar --no-daemon -x test && \
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=builder /app/app.jar app.jar
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
