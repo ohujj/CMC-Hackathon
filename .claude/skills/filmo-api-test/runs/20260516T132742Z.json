@@ -1,0 +1,802 @@
+{
+  "timestamp": "20260516T132742Z",
+  "base": "http://localhost:8080",
+  "scores": {
+    "api_ok": 22.5,
+    "exception": 20.0,
+    "total": 42.5
+  },
+  "summary": {
+    "endpoints": 16,
+    "happy_2xx": 12,
+    "fuzz_cases": 115,
+    "fuzz_500": 0
+  },
+  "happy": [
+    {
+      "path": "/api/tickets",
+      "method": "POST",
+      "status": 400,
+      "elapsed_ms": 7,
+      "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+    },
+    {
+      "path": "/api/theaters/{theaCd}/save",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 27,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+    },
+    {
+      "path": "/api/theaters/{theaCd}/save",
+      "method": "DELETE",
+      "status": 200,
+      "elapsed_ms": 11,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+    },
+    {
+      "path": "/api/auth/signup",
+      "method": "POST",
+      "status": 200,
+      "elapsed_ms": 83,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"accessToken\":\"eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxNCIsImlhdCI6MTc3ODkzODA2MSwiZXhwIjoxNzc5MDI0NDYxfQ.tj4mRVrASsMgitTdVIn3hpGKVmCKTMPmfIoyc006lFo\"}}"
+    },
+    {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "status": 404,
+      "elapsed_ms": 6,
+      "preview": "{\"code\":2001,\"message\":\"사용자를 찾을 수 없습니다.\",\"data\":null}"
+    },
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 9,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":13,\"loginId\":\"qa_59761f48\",\"nickname\":\"QA_59761f48\",\"intro\":null,\"ticketCount\":0,\"savedTicketCount\":0,\"savedTheaterCount\":0}}"
+    },
+    {
+      "path": "/api/users/me",
+      "method": "PATCH",
+      "status": 200,
+      "elapsed_ms": 14,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":13,\"loginId\":\"qa_59761f48\",\"nickname\":\"test_string\",\"intro\":\"test_string\",\"ticketCount\":0,\"savedTicketCount\":0,\"savedTheaterCount\":0}}"
+    },
+    {
+      "path": "/api/tickets/{ticketId}",
+      "method": "PATCH",
+      "status": 400,
+      "elapsed_ms": 1,
+      "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 1,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+    },
+    {
+      "path": "/api/users/me/theaters",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 7,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[],\"pageable\":{\"pageNumber\":0,\"pageSize\":20,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"offset\":0,\"paged\":true,\"unpaged\":false},\"last\":true"
+    },
+    {
+      "path": "/api/theaters",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 10,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\""
+    },
+    {
+      "path": "/api/theaters/{theaCd}",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 8,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\"homepage\":\"h"
+    },
+    {
+      "path": "/api/movies",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 12,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"imagePath\":\"fileFolder/b9dd0d1"
+    },
+    {
+      "path": "/api/movies/{seq}",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 7,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"actors\":\"\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"companyNm\":\"주식회사영화사미\",\"distrib"
+    },
+    {
+      "path": "/api/movies/image/{imagePath}",
+      "method": "GET",
+      "status": 401,
+      "elapsed_ms": 132,
+      "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+    },
+    {
+      "path": "/api/auth/nickname/random",
+      "method": "GET",
+      "status": 200,
+      "elapsed_ms": 9,
+      "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"nickname\":\"따뜻한프롤로그330\"}}"
+    }
+  ],
+  "fuzz": [
+    {
+      "path": "/api/tickets",
+      "method": "POST",
+      "cases": [
+        {
+          "case": "empty_body",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"watchedDate\":\"널이어서는 안됩니다\",\"movieSeq\":\"널이어서는 안됩니다\",\"cinema\":\"공백일 수 없습니다\",\"watchedTime\":\"널이어서는 안됩니다\"}}"
+        },
+        {
+          "case": "wrong_type",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"watchedDate\":\"널이어서는 안됩니다\",\"movieSeq\":\"널이어서는 안됩니다\",\"cinema\":\"공백일 수 없습니다\",\"watchedTime\":\"널이어서는 안됩니다\"}}"
+        },
+        {
+          "case": "sql_inj",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"watchedDate\":\"널이어서는 안됩니다\",\"movieSeq\":\"널이어서는 안됩니다\",\"cinema\":\"공백일 수 없습니다\",\"watchedTime\":\"널이어서는 안됩니다\"}}"
+        },
+        {
+          "case": "xss",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"watchedDate\":\"널이어서는 안됩니다\",\"movieSeq\":\"널이어서는 안됩니다\",\"cinema\":\"공백일 수 없습니다\",\"watchedTime\":\"널이어서는 안됩니다\"}}"
+        },
+        {
+          "case": "huge_string",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"watchedDate\":\"널이어서는 안됩니다\",\"movieSeq\":\"널이어서는 안됩니다\",\"cinema\":\"공백일 수 없습니다\",\"watchedTime\":\"널이어서는 안됩니다\"}}"
+        },
+        {
+          "case": "negative_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/theaters/{theaCd}/save",
+      "method": "POST",
+      "cases": [
+        {
+          "case": "empty_body",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "wrong_type",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "sql_inj",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "xss",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "huge_string",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/theaters/{theaCd}/save",
+      "method": "DELETE",
+      "cases": [
+        {
+          "case": "empty_body",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "wrong_type",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "sql_inj",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "xss",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "huge_string",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/auth/signup",
+      "method": "POST",
+      "cases": [
+        {
+          "case": "empty_body",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"password\":\"공백일 수 없습니다\",\"loginId\":\"공백일 수 없습니다\",\"nickname\":\"공백일 수 없습니다\"}}"
+        },
+        {
+          "case": "wrong_type",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "sql_inj",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"password\":\"크기가 4에서 60 사이여야 합니다\",\"nickname\":\"크기가 2에서 20 사이여야 합니다\"}}"
+        },
+        {
+          "case": "xss",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"password\":\"크기가 4에서 60 사이여야 합니다\",\"nickname\":\"크기가 2에서 20 사이여야 합니다\"}}"
+        },
+        {
+          "case": "huge_string",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"password\":\"크기가 4에서 60 사이여야 합니다\",\"loginId\":\"크기가 4에서 30 사이여야 합니다\",\"nickname\":\"크기가 2에서 20 사이여야 합니다\"}}"
+        },
+        {
+          "case": "negative_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 409,
+          "preview": "{\"code\":2003,\"message\":\"이미 사용 중인 아이디입니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 409,
+          "preview": "{\"code\":2003,\"message\":\"이미 사용 중인 아이디입니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/auth/login",
+      "method": "POST",
+      "cases": [
+        {
+          "case": "empty_body",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"password\":\"공백일 수 없습니다\",\"loginId\":\"공백일 수 없습니다\"}}"
+        },
+        {
+          "case": "wrong_type",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "sql_inj",
+          "status": 404,
+          "preview": "{\"code\":2001,\"message\":\"사용자를 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "xss",
+          "status": 404,
+          "preview": "{\"code\":2001,\"message\":\"사용자를 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_string",
+          "status": 404,
+          "preview": "{\"code\":2001,\"message\":\"사용자를 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "negative_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 404,
+          "preview": "{\"code\":2001,\"message\":\"사용자를 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 404,
+          "preview": "{\"code\":2001,\"message\":\"사용자를 찾을 수 없습니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/users/me",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":13,\"loginId\":\"qa_59761f48\",\"nickname\":\"QA_59761f48\",\"intro\":null,\"ticketCount\":0,\"savedTicketCount\":0,\"savedTheaterCount\":0}}"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":13,\"loginId\":\"qa_59761f48\",\"nickname\":\"QA_59761f48\",\"intro\":null,\"ticketCount\":0,\"savedTicketCount\":0,\"savedTheaterCount\":0}}"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":13,\"loginId\":\"qa_59761f48\",\"nickname\":\"QA_59761f48\",\"intro\":null,\"ticketCount\":0,\"savedTicketCount\":0,\"savedTheaterCount\":0}}"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/users/me",
+      "method": "PATCH",
+      "cases": [
+        {
+          "case": "empty_body",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":13,\"loginId\":\"qa_59761f48\",\"nickname\":\"test_string\",\"intro\":\"test_string\",\"ticketCount\":0,\"savedTicketCount\":0,\"savedTheaterCount\":0}}"
+        },
+        {
+          "case": "wrong_type",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"id\":13,\"loginId\":\"qa_59761f48\",\"nickname\":\"test_string\",\"intro\":\"test_string\",\"ticketCount\":0,\"savedTicketCount\":0,\"savedTheaterCount\":0}}"
+        },
+        {
+          "case": "sql_inj",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"nickname\":\"크기가 2에서 20 사이여야 합니다\"}}"
+        },
+        {
+          "case": "xss",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"nickname\":\"크기가 2에서 20 사이여야 합니다\"}}"
+        },
+        {
+          "case": "huge_string",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"잘못된 입력입니다.\",\"data\":{\"nickname\":\"크기가 2에서 20 사이여야 합니다\"}}"
+        },
+        {
+          "case": "negative_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/tickets/{ticketId}",
+      "method": "PATCH",
+      "cases": [
+        {
+          "case": "empty_body",
+          "status": 404,
+          "preview": "{\"code\":5001,\"message\":\"티켓을 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "wrong_type",
+          "status": 404,
+          "preview": "{\"code\":5001,\"message\":\"티켓을 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "sql_inj",
+          "status": 404,
+          "preview": "{\"code\":5001,\"message\":\"티켓을 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "xss",
+          "status": 404,
+          "preview": "{\"code\":5001,\"message\":\"티켓을 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_string",
+          "status": 404,
+          "preview": "{\"code\":5001,\"message\":\"티켓을 찾을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "negative_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 400,
+          "preview": "{\"code\":1003,\"message\":\"요청 본문을 읽을 수 없습니다.\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/health",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/users/me/theaters",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[],\"pageable\":{\"pageNumber\":0,\"pageSize\":20,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"offset\":0,\"paged\":true,\"unpaged\":false},\"last\":true"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[],\"pageable\":{\"pageNumber\":0,\"pageSize\":20,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"offset\":0,\"paged\":true,\"unpaged\":false},\"last\":true"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[],\"pageable\":{\"pageNumber\":999999,\"pageSize\":2000,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"offset\":1999998000,\"paged\":true,\"unpaged\":fa"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/theaters",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\""
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\""
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[],\"pageable\":{\"pageNumber\":999999,\"pageSize\":2000,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"offset\":1999998000,\"paged\":true,\"unpaged\":fa"
+        },
+        {
+          "case": "no_auth",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\""
+        },
+        {
+          "case": "bad_token",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\""
+        }
+      ]
+    },
+    {
+      "path": "/api/theaters/{theaCd}",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\"homepage\":\"h"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\"homepage\":\"h"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\"homepage\":\"h"
+        },
+        {
+          "case": "no_auth",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\"homepage\":\"h"
+        },
+        {
+          "case": "bad_token",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"theaCd\":\"001016\",\"theaName\":\"CGV 강변\",\"scrnName\":\"04관(아트하우스)\",\"screenGb\":\"121001\",\"address\":\"서울특별시 광진구 구의동 546-4 번지 테크노마트 10층\",\"phone\":\"1544-1122\",\"homepage\":\"h"
+        }
+      ]
+    },
+    {
+      "path": "/api/movies",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"imagePath\":\"fileFolder/b9dd0d1"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"imagePath\":\"fileFolder/b9dd0d1"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[],\"pageable\":{\"pageNumber\":999999,\"pageSize\":2000,\"sort\":{\"empty\":false,\"sorted\":true,\"unsorted\":false},\"offset\":1999998000,\"paged\":true,\"unpaged\":fa"
+        },
+        {
+          "case": "no_auth",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"imagePath\":\"fileFolder/b9dd0d1"
+        },
+        {
+          "case": "bad_token",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"content\":[{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"imagePath\":\"fileFolder/b9dd0d1"
+        }
+      ]
+    },
+    {
+      "path": "/api/movies/{seq}",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"actors\":\"\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"companyNm\":\"주식회사영화사미\",\"distrib"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"actors\":\"\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"companyNm\":\"주식회사영화사미\",\"distrib"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"actors\":\"\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"companyNm\":\"주식회사영화사미\",\"distrib"
+        },
+        {
+          "case": "no_auth",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"actors\":\"\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"companyNm\":\"주식회사영화사미\",\"distrib"
+        },
+        {
+          "case": "bad_token",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"seq\":6337,\"korTitle\":\"밀월\",\"engTitle\":\"The Ashes of Love\",\"director\":\"조성규\",\"actors\":\"\",\"productionYear\":\"2025\",\"genreName\":\"극영화\",\"companyNm\":\"주식회사영화사미\",\"distrib"
+        }
+      ]
+    },
+    {
+      "path": "/api/movies/image/{imagePath}",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "nan_page",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "huge_page",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "no_auth",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        },
+        {
+          "case": "bad_token",
+          "status": 401,
+          "preview": "{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}"
+        }
+      ]
+    },
+    {
+      "path": "/api/auth/nickname/random",
+      "method": "GET",
+      "cases": [
+        {
+          "case": "negative_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"nickname\":\"따뜻한컷381\"}}"
+        },
+        {
+          "case": "nan_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"nickname\":\"수줍은관객156\"}}"
+        },
+        {
+          "case": "huge_page",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"nickname\":\"깊은스틸컷622\"}}"
+        },
+        {
+          "case": "no_auth",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"nickname\":\"포근한오프닝826\"}}"
+        },
+        {
+          "case": "bad_token",
+          "status": 200,
+          "preview": "{\"code\":200,\"message\":\"success\",\"data\":{\"nickname\":\"단단한엑스트라701\"}}"
+        }
+      ]
+    }
+  ]
+}
