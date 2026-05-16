@@ -4,7 +4,6 @@ import com.cmchackathon.global.jwt.JwtAccessDeniedHandler;
 import com.cmchackathon.global.jwt.JwtAuthenticationEntryPoint;
 import com.cmchackathon.global.jwt.JwtFilter;
 import com.cmchackathon.global.jwt.JwtProvider;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +15,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -49,24 +47,12 @@ public class SecurityConfig {
                         .requestMatchers("/", "/error", "/health", "/healthBody",
                                 "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/api/movies/**")).permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/api/theaters")).permitAll()
-                        .requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/api/theaters/*")).permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/movies/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/theaters").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/theaters/*").permitAll()
                         // 그 외 모두 인증 필요 (save/me 등)
                         .anyRequest().authenticated())
 
-                .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint((request, response, authException) -> {
-                            response.setContentType("application/json;charset=UTF-8");
-                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                            response.getWriter().write("{\"code\":401,\"message\":\"인증이 필요합니다.\",\"data\":null}");
-                        })
-                        .accessDeniedHandler((request, response, accessDeniedException) -> {
-                            response.setContentType("application/json;charset=UTF-8");
-                            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-                            response.getWriter().write("{\"code\":403,\"message\":\"접근 권한이 없습니다.\",\"data\":null}");
-                        })
-                )
                 .addFilterBefore(new JwtFilter(jwtProvider), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

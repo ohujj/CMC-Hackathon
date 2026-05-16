@@ -55,7 +55,7 @@ public class TicketService {
     }
 
     public void updateTicket(Long userId, Long ticketId, TicketUpdateRequest request) {
-        Ticket ticket = ticketRepository.findById(ticketId)
+        Ticket ticket = ticketRepository.findByIdAndDeletedAtIsNull(ticketId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
 
         if (!ticket.getUser().getId().equals(userId)) {
@@ -82,7 +82,7 @@ public class TicketService {
     }
 
     public void deleteTicket(Long userId, Long ticketId) {
-        Ticket ticket = ticketRepository.findById(ticketId)
+        Ticket ticket = ticketRepository.findByIdAndDeletedAtIsNull(ticketId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
 
         if (!ticket.getUser().getId().equals(userId)) {

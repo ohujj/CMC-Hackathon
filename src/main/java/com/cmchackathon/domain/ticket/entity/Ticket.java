@@ -63,7 +63,7 @@ public class Ticket extends BaseEntity {
     }
 
     @Builder
-    public Ticket(User user, Long movieSeq, Movie movie, LocalDate watchedDate, LocalTime watchedTime, String cinema, String review) {
+    public Ticket(User user, Movie movie, LocalDate watchedDate, LocalTime watchedTime, String cinema, String review) {
         this.user = user;
         this.movie = movie;
         this.watchedDate = watchedDate;

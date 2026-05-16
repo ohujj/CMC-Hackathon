@@ -44,7 +44,7 @@ public class CommentService {
         Ticket ticket = ticketRepository.findByIdAndDeletedAtIsNull(ticketId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
 
-        if (!ticket.isShowYn()) {
+        if (!ticket.isShowYn() && !ticket.getUser().getId().equals(userId)) {
             throw new BusinessException(ErrorCode.FORBIDDEN);
         }
 
