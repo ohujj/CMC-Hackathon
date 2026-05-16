@@ -1,6 +1,8 @@
 entryPoints:
   web:
     address: ":80"
+    forwardedHeaders:
+      insecure: true # cloudflared가 보낸 X-Forwarded-Proto: https 신뢰
 
 providers:
   docker:

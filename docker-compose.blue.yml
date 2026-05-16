@@ -10,7 +10,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - JWT_SECRET=${JWT_SECRET}
       - JWT_EXPIRATION=${JWT_EXPIRATION}
-      - SERVER_FORWARD_HEADERS_STRATEGY=NATIVE
+      - SERVER_FORWARD_HEADERS_STRATEGY=FRAMEWORK
     volumes:
       - ./logs:/logs
     healthcheck:
