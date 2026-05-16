@@ -17,9 +17,4 @@ public class HealthController {
     public String healthBody() {
         return "OK";
     }
-
-    @GetMapping("/")
-    public String root() {
-        return "OK";
-    }
 }
