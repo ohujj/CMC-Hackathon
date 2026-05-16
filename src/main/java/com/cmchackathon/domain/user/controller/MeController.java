@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -41,10 +42,14 @@ public class MeController {
         return ApiResponse.success(userService.updateMe(userId, request));
     }
 
-    @Operation(summary = "저장한 영화관 목록")
+    @Operation(
+            summary = "저장한 영화관 목록 (페이지네이션)",
+            description = "내가 북마크한 영화관 목록. `page`/`size`/`sort` 사용. 정렬 필드: `theaName`, `theaCd`"
+    )
     @GetMapping("/theaters")
     public ApiResponse<Page<TheaterResponse>> getSavedTheaters(
             @AuthenticationPrincipal Long userId,
+            @ParameterObject
             @PageableDefault(size = 20, sort = "theaName", direction = Sort.Direction.ASC) Pageable pageable
     ) {
         return ApiResponse.success(theaterService.getSavedTheaters(userId, pageable));
