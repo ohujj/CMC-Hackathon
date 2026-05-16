@@ -130,7 +130,7 @@ export default function TicketDetailPage({
                     movie.genreName,
                     movie.director && `${movie.director} 감독`,
                     movie.productionYear && `${movie.productionYear}년`,
-                    movie.duration && `${movie.duration}분`,
+                    movie.duration,
                   ]
                     .filter(Boolean)
                     .join(" · ")

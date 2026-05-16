@@ -123,7 +123,7 @@ export default function FeedPage() {
                             m.genreName,
                             m.director && `${m.director} 감독`,
                             m.productionYear && `${m.productionYear}년`,
-                            m.duration && `${m.duration}분`,
+                            m.duration,
                           ]
                             .filter(Boolean)
                             .join(" · ")

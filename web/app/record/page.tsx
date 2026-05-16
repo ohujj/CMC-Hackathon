@@ -127,7 +127,7 @@ export default function RecordPage() {
                   selected.genreName,
                   selected.director && `${selected.director} 감독`,
                   selected.productionYear && `${selected.productionYear}년`,
-                  selected.duration && `${selected.duration}분`,
+                  selected.duration,
                 ]
                   .filter(Boolean)
                   .join(" · ")}
