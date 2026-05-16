@@ -18,22 +18,22 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @Operation(summary = "댓글 삭제")
-    @DeleteMapping("/{commentId}")
-    public ResponseEntity<ApiResponse<Void>> deleteComment(
-            @AuthenticationPrincipal Long userId,
-            @PathVariable Long commentId) {
-        commentService.deleteComment(userId, commentId);
-        return ResponseEntity.ok(ApiResponse.success());
-    }
+//    @Operation(summary = "댓글 삭제")
+//    @DeleteMapping("/{commentId}")
+//    public ResponseEntity<ApiResponse<Void>> deleteComment(
+//            @AuthenticationPrincipal Long userId,
+//            @PathVariable Long commentId) {
+//        commentService.deleteComment(userId, commentId);
+//        return ResponseEntity.ok(ApiResponse.success());
+//    }
 
-    @Operation(summary = "댓글 등록")
-    @PostMapping("/{ticketId}")
-    public ResponseEntity<ApiResponse<Void>> createComment(
-            @AuthenticationPrincipal Long userId,
-            @PathVariable Long ticketId,
-            @RequestBody CommentCreateRequest request) {
-        commentService.createComment(userId, ticketId, request.getContent());
-        return ResponseEntity.ok(ApiResponse.success());
-    }
+//    @Operation(summary = "댓글 등록")
+//    @PostMapping("/{ticketId}")
+//    public ResponseEntity<ApiResponse<Void>> createComment(
+//            @AuthenticationPrincipal Long userId,
+//            @PathVariable Long ticketId,
+//            @RequestBody CommentCreateRequest request) {
+//        commentService.createComment(userId, ticketId, request.getContent());
+//        return ResponseEntity.ok(ApiResponse.success());
+//    }
 }
