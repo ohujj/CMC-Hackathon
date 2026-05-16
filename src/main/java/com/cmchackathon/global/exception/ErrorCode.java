@@ -23,10 +23,6 @@ public enum ErrorCode {
     DUPLICATE_LOGIN_ID(409, 2003, "이미 사용 중인 아이디입니다."),
     DUPLICATE_NICKNAME(409, 2004, "이미 사용 중인 닉네임입니다."),
 
-    // 영화관
-    THEATER_NOT_FOUND(404, 3001, "영화관을 찾을 수 없습니다."),
-    ALREADY_SAVED_THEATER(409, 3002, "이미 저장한 영화관입니다."),
-
     // 영화 / 티켓
     MOVIE_NOT_FOUND(404, 4001, "영화를 찾을 수 없습니다."),
     TICKET_NOT_FOUND(404, 5001, "티켓을 찾을 수 없습니다."),
