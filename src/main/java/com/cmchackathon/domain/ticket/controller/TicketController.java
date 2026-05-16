@@ -66,4 +66,11 @@ public class TicketController {
             @PathVariable Long ticketId) {
         return ResponseEntity.ok(ApiResponse.success(ticketService.getTicketDetail(userId, ticketId)));
     }
+
+    @Operation(summary = "공개 티켓 목록 조회")
+    @GetMapping("/public")
+    public ResponseEntity<ApiResponse<List<TicketResponse>>> getPublicTickets(
+            @RequestParam(defaultValue = "latest") String sort) {
+        return ResponseEntity.ok(ApiResponse.success(ticketService.getPublicTickets(sort)));
+    }
 }

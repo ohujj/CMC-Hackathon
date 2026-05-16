@@ -105,4 +105,16 @@ public class TicketService {
         return TicketDetailResponse.of(ticket, likeCount, isLiked, isCollected, comments);
     }
 
+    @Transactional(readOnly = true)
+    public List<TicketResponse> getPublicTickets(String sort) {
+        List<Ticket> tickets;
+
+        if ("like".equals(sort)) {
+            tickets = ticketRepository.findAllPublicTicketsOrderByLikeCount();
+        } else {
+            tickets = ticketRepository.findAllPublicTicketsOrderByCreatedAt();
+        }
+
+        return tickets.stream().map(TicketResponse::from).toList();
+    }
 }
