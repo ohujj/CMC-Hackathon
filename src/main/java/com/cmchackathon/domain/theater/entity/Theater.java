@@ -1,4 +1,4 @@
-package com.cmchackathon.theater.entity;
+package com.cmchackathon.domain.theater.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

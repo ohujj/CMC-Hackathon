@@ -1,9 +1,9 @@
-package com.cmchackathon.movie.controller;
+package com.cmchackathon.domain.movie.controller;
 
 import com.cmchackathon.global.response.ApiResponse;
-import com.cmchackathon.movie.dto.MovieDetailResponse;
-import com.cmchackathon.movie.dto.MovieListResponse;
-import com.cmchackathon.movie.service.MovieService;
+import com.cmchackathon.domain.movie.dto.MovieDetailResponse;
+import com.cmchackathon.domain.movie.dto.MovieListResponse;
+import com.cmchackathon.domain.movie.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,11 +21,9 @@ public class MovieController {
     @GetMapping
     public ApiResponse<Page<MovieListResponse>> getMovies(
             @RequestParam(required = false) String keyword,
-            @RequestParam(required = false) String genre,
-            @RequestParam(required = false) String year,
             @PageableDefault(size = 20, sort = "seq", direction = Sort.Direction.DESC) Pageable pageable
     ) {
-        return ApiResponse.success(movieService.getMovies(keyword, genre, year, pageable));
+        return ApiResponse.success(movieService.getMovies(keyword, pageable));
     }
 
     @GetMapping("/{seq}")

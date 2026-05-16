@@ -1,6 +1,6 @@
-package com.cmchackathon.theater.repository;
+package com.cmchackathon.domain.theater.repository;
 
-import com.cmchackathon.theater.entity.Theater;
+import com.cmchackathon.domain.theater.entity.Theater;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

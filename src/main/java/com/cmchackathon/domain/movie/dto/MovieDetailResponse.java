@@ -1,6 +1,6 @@
-package com.cmchackathon.movie.dto;
+package com.cmchackathon.domain.movie.dto;
 
-import com.cmchackathon.movie.entity.Movie;
+import com.cmchackathon.domain.movie.entity.Movie;
 import lombok.Builder;
 import lombok.Getter;
 

@@ -1,6 +1,6 @@
-package com.cmchackathon.theater.dto;
+package com.cmchackathon.domain.theater.dto;
 
-import com.cmchackathon.theater.entity.Theater;
+import com.cmchackathon.domain.theater.entity.Theater;
 import lombok.Builder;
 import lombok.Getter;
 

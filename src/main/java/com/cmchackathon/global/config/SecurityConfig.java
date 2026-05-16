@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -43,7 +44,13 @@ public class SecurityConfig {
                         .accessDeniedHandler(jwtAccessDeniedHandler))
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/health", "/healthBody", "/api/auth/**", "/api/movies/**", "/api/theaters/**", "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                        // public
+                        .requestMatchers("/", "/health", "/healthBody",
+                                "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/movies/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/theaters", "/api/theaters/*").permitAll()
+                        // 그 외 모두 인증 필요 (save/me 등)
                         .anyRequest().authenticated())
 
                 .exceptionHandling(exception -> exception

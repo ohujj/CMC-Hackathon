@@ -5,6 +5,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -89,6 +90,20 @@ public class GlobalExceptionHandler {
         log.warn("[NotFound] {} {}", req.getMethod(), req.getRequestURI());
         ErrorCode ec = ErrorCode.NOT_FOUND;
         return ResponseEntity.status(ec.getStatus()).body(ApiResponse.fail(ec.getCode(), ec.getMessage()));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiResponse<Void>> handleDataIntegrity(DataIntegrityViolationException e, HttpServletRequest req) {
+        log.warn("[DataIntegrity] {} {} - {}", req.getMethod(), req.getRequestURI(), e.getMostSpecificCause().getMessage());
+        ErrorCode ec = ErrorCode.INVALID_INPUT;
+        return ResponseEntity.status(ec.getStatus()).body(ApiResponse.fail(ec.getCode(), "데이터 제약 조건 위반 (중복 또는 잘못된 값)"));
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponse<Void>> handleIllegalArgument(IllegalArgumentException e, HttpServletRequest req) {
+        log.warn("[IllegalArgument] {} {} - {}", req.getMethod(), req.getRequestURI(), e.getMessage());
+        ErrorCode ec = ErrorCode.INVALID_INPUT;
+        return ResponseEntity.status(ec.getStatus()).body(ApiResponse.fail(ec.getCode(), e.getMessage() != null ? e.getMessage() : ec.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
