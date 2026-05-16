@@ -20,7 +20,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +33,6 @@ public class TicketService {
     private final TicketRepository ticketRepository;
     private final MovieRepository movieRepository;
     private final UserRepository userRepository;
-
     private final LikeRepository likeRepository;
     private final CommentRepository commentRepository;
     private final CollectionRepository collectionRepository;
@@ -78,7 +80,6 @@ public class TicketService {
         } else {
             ticket.unshare();
         }
-
     }
 
     public void deleteTicket(Long userId, Long ticketId) {
@@ -94,14 +95,8 @@ public class TicketService {
 
     @Transactional(readOnly = true)
     public List<TicketResponse> getMyTickets(Long userId) {
-        return ticketRepository.findByUserIdAndDeletedAtIsNull(userId)
-                .stream()
-                .map(t -> TicketResponse.from(
-                        t,
-                        likeRepository.existsByUserIdAndTicketId(userId, t.getId()),
-                        likeRepository.countByTicketId(t.getId())
-                ))
-                .toList();
+        List<Ticket> tickets = ticketRepository.findByUserIdAndDeletedAtIsNull(userId);
+        return buildTicketResponses(tickets, userId);
     }
 
     @Transactional(readOnly = true)
@@ -127,19 +122,27 @@ public class TicketService {
 
     @Transactional(readOnly = true)
     public List<TicketResponse> getPublicTickets(Long userId, String sort) {
-        List<Ticket> tickets;
+        List<Ticket> tickets = "like".equals(sort)
+                ? ticketRepository.findAllPublicTicketsOrderByLikeCount()
+                : ticketRepository.findAllPublicTicketsOrderByCreatedAt();
+        return buildTicketResponses(tickets, userId);
+    }
 
-        if ("like".equals(sort)) {
-            tickets = ticketRepository.findAllPublicTicketsOrderByLikeCount();
-        } else {
-            tickets = ticketRepository.findAllPublicTicketsOrderByCreatedAt();
+    private List<TicketResponse> buildTicketResponses(List<Ticket> tickets, Long userId) {
+        List<Long> ticketIds = tickets.stream().map(Ticket::getId).toList();
+        Set<Long> likedIds = likeRepository.findTicketIdsByUserId(userId);
+
+        Map<Long, Long> likeCountMap = new HashMap<>();
+        if (!ticketIds.isEmpty()) {
+            likeRepository.countByTicketIds(ticketIds)
+                    .forEach(row -> likeCountMap.put((Long) row[0], (Long) row[1]));
         }
 
         return tickets.stream()
                 .map(t -> TicketResponse.from(
                         t,
-                        likeRepository.existsByUserIdAndTicketId(userId, t.getId()),
-                        likeRepository.countByTicketId(t.getId())
+                        likedIds.contains(t.getId()),
+                        likeCountMap.getOrDefault(t.getId(), 0L)
                 ))
                 .toList();
     }
