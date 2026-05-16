@@ -73,4 +73,14 @@ public class TicketController {
             @RequestParam(defaultValue = "latest") String sort) {
         return ResponseEntity.ok(ApiResponse.success(ticketService.getPublicTickets(sort)));
     }
+
+    @Operation(summary = "티켓 공개 여부 변경")
+    @PatchMapping("/{ticketId}/share")
+    public ResponseEntity<ApiResponse<Void>> updateShowYn(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable Long ticketId,
+            @RequestParam boolean showYn) {
+        ticketService.updateShowYn(userId, ticketId, showYn);
+        return ResponseEntity.ok(ApiResponse.success());
+    }
 }

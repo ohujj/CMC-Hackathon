@@ -65,6 +65,22 @@ public class TicketService {
         ticket.update(request);
     }
 
+    public void updateShowYn(Long userId, Long ticketId, boolean showYn) {
+        Ticket ticket = ticketRepository.findByIdAndDeletedAtIsNull(ticketId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
+
+        if (!ticket.getUser().getId().equals(userId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN);
+        }
+
+        if (showYn) {
+            ticket.share();
+        } else {
+            ticket.unshare();
+        }
+
+    }
+
     public void deleteTicket(Long userId, Long ticketId) {
         Ticket ticket = ticketRepository.findById(ticketId)
                 .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
