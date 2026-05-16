@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/movies")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class MovieController {
 
     private final MovieService movieService;
@@ -40,6 +39,8 @@ public class MovieController {
         String url = "https://indieground.kr/fileFolder/" + imagePath;
         java.net.HttpURLConnection conn = (java.net.HttpURLConnection)
                 new java.net.URL(url).openConnection();
+        conn.setConnectTimeout(3000);
+        conn.setReadTimeout(5000);
         conn.setRequestProperty("Referer", "https://indieground.kr/indie/dbList.do");
         conn.setRequestProperty("User-Agent", "Mozilla/5.0");
         response.setContentType("image/jpeg");

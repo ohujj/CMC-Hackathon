@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/theaters")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class TheaterController {
 
     private final TheaterService theaterService;
