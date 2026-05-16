@@ -96,7 +96,7 @@ public class TicketService {
     public List<TicketResponse> getMyTickets(Long userId) {
         return ticketRepository.findByUserIdAndDeletedAtIsNull(userId)
                 .stream()
-                .map(TicketResponse::from)
+                .map(t -> TicketResponse.from(t, likeRepository.existsByUserIdAndTicketId(userId, t.getId())))
                 .toList();
     }
 
@@ -122,7 +122,7 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public List<TicketResponse> getPublicTickets(String sort) {
+    public List<TicketResponse> getPublicTickets(Long userId, String sort) {
         List<Ticket> tickets;
 
         if ("like".equals(sort)) {
@@ -131,6 +131,8 @@ public class TicketService {
             tickets = ticketRepository.findAllPublicTicketsOrderByCreatedAt();
         }
 
-        return tickets.stream().map(TicketResponse::from).toList();
+        return tickets.stream()
+                .map(t -> TicketResponse.from(t, likeRepository.existsByUserIdAndTicketId(userId, t.getId())))
+                .toList();
     }
 }

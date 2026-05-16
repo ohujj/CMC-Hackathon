@@ -19,10 +19,11 @@ public class TicketResponse {
     private Integer rating;
     private String review;
     private boolean showYn;
+    private boolean isLiked;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public static TicketResponse from(Ticket ticket) {
+    public static TicketResponse from(Ticket ticket, boolean isLiked) {
         return new TicketResponse(
                 ticket.getId(),
                 ticket.getMovie().getSeq(),
@@ -31,6 +32,7 @@ public class TicketResponse {
                 ticket.getRating(),
                 ticket.getReview(),
                 ticket.isShowYn(),
+                isLiked,
                 ticket.getCreatedAt(),
                 ticket.getUpdatedAt()
         );

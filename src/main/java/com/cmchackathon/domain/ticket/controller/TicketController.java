@@ -70,8 +70,9 @@ public class TicketController {
     @Operation(summary = "공개 티켓 목록 조회")
     @GetMapping("/public")
     public ResponseEntity<ApiResponse<List<TicketResponse>>> getPublicTickets(
+            @AuthenticationPrincipal Long userId,
             @RequestParam(defaultValue = "latest") String sort) {
-        return ResponseEntity.ok(ApiResponse.success(ticketService.getPublicTickets(sort)));
+        return ResponseEntity.ok(ApiResponse.success(ticketService.getPublicTickets(userId, sort)));
     }
 
     @Operation(summary = "티켓 공개 여부 변경")
