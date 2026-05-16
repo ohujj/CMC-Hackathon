@@ -17,7 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "Me", description = "내 프로필 / 컬렉션")
+@Tag(name = "02. Me", description = "내 프로필 / 활동 / 저장한 영화관")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/users/me")

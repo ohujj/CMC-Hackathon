@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "Ticket", description = "티켓 API")
+@Tag(name = "04. Ticket", description = "관람한 영화 티켓 작성 / 수정")
 @RestController
 @RequestMapping("/api/tickets")
 @RequiredArgsConstructor

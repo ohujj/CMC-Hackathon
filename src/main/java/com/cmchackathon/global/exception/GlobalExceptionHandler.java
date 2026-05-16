@@ -6,6 +6,8 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -97,6 +99,26 @@ public class GlobalExceptionHandler {
         log.warn("[DataIntegrity] {} {} - {}", req.getMethod(), req.getRequestURI(), e.getMostSpecificCause().getMessage());
         ErrorCode ec = ErrorCode.INVALID_INPUT;
         return ResponseEntity.status(ec.getStatus()).body(ApiResponse.fail(ec.getCode(), "데이터 제약 조건 위반 (중복 또는 잘못된 값)"));
+    }
+
+    @ExceptionHandler(PropertyReferenceException.class)
+    public ResponseEntity<ApiResponse<Void>> handlePropertyReference(PropertyReferenceException e, HttpServletRequest req) {
+        log.warn("[PropertyReference] {} {} - {}", req.getMethod(), req.getRequestURI(), e.getMessage());
+        ErrorCode ec = ErrorCode.INVALID_INPUT;
+        return ResponseEntity.status(ec.getStatus())
+                .body(ApiResponse.fail(ec.getCode(), "정렬 또는 필드명이 잘못되었습니다: " + e.getPropertyName()));
+    }
+
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    public ResponseEntity<ApiResponse<Void>> handleInvalidDataAccess(InvalidDataAccessApiUsageException e, HttpServletRequest req) {
+        Throwable root = e.getMostSpecificCause();
+        if (root instanceof PropertyReferenceException pre) {
+            return handlePropertyReference(pre, req);
+        }
+        log.warn("[InvalidDataAccess] {} {} - {}", req.getMethod(), req.getRequestURI(), root.getMessage());
+        ErrorCode ec = ErrorCode.INVALID_INPUT;
+        return ResponseEntity.status(ec.getStatus())
+                .body(ApiResponse.fail(ec.getCode(), "잘못된 쿼리 파라미터입니다."));
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
