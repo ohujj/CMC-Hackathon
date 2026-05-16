@@ -7,6 +7,11 @@ on:
       - "src/**"
       - "Dockerfile"
       - "docker-compose.yml"
+      - "docker-compose.db.yml"
+      - "docker-compose.blue.yml"
+      - "docker-compose.green.yml"
+      - "traefik/traefik.yml"
+      - "scripts/**"
       - "build.gradle"
       - "settings.gradle"
       - "gradlew"
@@ -52,9 +57,33 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /home/ec2-user/CMC-Hackathon
+
+            # dynamic.yml은 gitignore 대상 — git reset 전 현재 슬롯 보존
+            ACTIVE_SLOT=$(grep -oE 'cmc-hackathon-(blue|green)' traefik/dynamic.yml 2>/dev/null | head -1 || echo "cmc-hackathon-blue")
+
             git fetch origin
             git reset --hard origin/main
-            docker rm -f cmc-hackathon 2>/dev/null || true
-            docker-compose --env-file .env pull
-            docker-compose --env-file .env down
-            docker-compose --env-file .env up -d
+
+            # dynamic.yml이 없으면 (최초 배포) 초기값으로 생성
+            if [ ! -f traefik/dynamic.yml ]; then
+              cat > traefik/dynamic.yml <<DYNEOF
+            http:
+              routers:
+                app:
+                  rule: "PathPrefix(\`/\`)"
+                  entryPoints: ["web"]
+                  service: app-active
+              services:
+                app-active:
+                  loadBalancer:
+                    servers:
+                      - url: "http://${ACTIVE_SLOT}:8080"
+                    healthCheck:
+                      path: "/health"
+                      interval: "5s"
+                      timeout: "2s"
+            DYNEOF
+            fi
+
+            chmod +x scripts/deploy.sh scripts/migrate.sh
+            bash scripts/deploy.sh

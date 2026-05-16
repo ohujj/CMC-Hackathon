@@ -127,8 +127,9 @@ cd web && npm run dev
 - DB/JPA 설정은 환경변수로 주입
 - `server.forward-headers-strategy: native` — Cloudflare Tunnel HTTPS 인식용
 
-### docker-compose.yml
+### 블루그린 배포 (Traefik)
 
-- `app`: Spring Boot (build from Dockerfile)
-- `db`: MySQL 8.0 (healthcheck 포함)
-- `web`: Next.js (Vercel로 분리 운영, compose에는 정의만 있음)
+- `docker-compose.db.yml`: Traefik + MySQL (항상 가동)
+- `docker-compose.blue.yml` / `docker-compose.green.yml`: 앱 슬롯
+- `traefik/traefik.yml` (static) + `traefik/dynamic.yml` (런타임 swap, gitignore)
+- `scripts/deploy.sh`: idle 슬롯 기동 → healthy 대기 → dynamic.yml swap → Traefik restart → 구 슬롯 down

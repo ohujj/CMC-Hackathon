@@ -42,3 +42,6 @@ logs/
 ### Secrets ###
 .env
 terraform/terraform.tfvars
+
+### Traefik runtime state (managed by deploy script on EC2) ###
+traefik/dynamic.yml
