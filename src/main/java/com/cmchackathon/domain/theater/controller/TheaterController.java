@@ -1,0 +1,58 @@
+package com.cmchackathon.domain.theater.controller;
+
+import com.cmchackathon.global.response.ApiResponse;
+import com.cmchackathon.domain.theater.dto.TheaterResponse;
+import com.cmchackathon.domain.theater.service.TheaterService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.*;
+
+@Tag(name = "Theater", description = "독립영화관 API")
+@RestController
+@RequestMapping("/api/theaters")
+@RequiredArgsConstructor
+public class TheaterController {
+
+    private final TheaterService theaterService;
+
+    @Operation(summary = "영화관 목록 (페이지네이션)")
+    @GetMapping
+    public ApiResponse<Page<TheaterResponse>> getTheaters(
+            @RequestParam(required = false) String keyword,
+            @PageableDefault(size = 20, sort = "theaName", direction = Sort.Direction.ASC) Pageable pageable
+    ) {
+        return ApiResponse.success(theaterService.getTheaters(keyword, pageable));
+    }
+
+    @Operation(summary = "영화관 단건 조회")
+    @GetMapping("/{theaCd}")
+    public ApiResponse<TheaterResponse> getTheater(@PathVariable String theaCd) {
+        return ApiResponse.success(theaterService.getTheater(theaCd));
+    }
+
+    @Operation(summary = "영화관 저장 (북마크)")
+    @PostMapping("/{theaCd}/save")
+    public ApiResponse<Void> save(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable String theaCd
+    ) {
+        theaterService.saveTheater(userId, theaCd);
+        return ApiResponse.success(null);
+    }
+
+    @Operation(summary = "영화관 저장 취소")
+    @DeleteMapping("/{theaCd}/save")
+    public ApiResponse<Void> unsave(
+            @AuthenticationPrincipal Long userId,
+            @PathVariable String theaCd
+    ) {
+        theaterService.unsaveTheater(userId, theaCd);
+        return ApiResponse.success(null);
+    }
+}

@@ -1,5 +1,7 @@
 package com.cmchackathon.domain.ticket.service;
 
+import com.cmchackathon.domain.movie.entity.Movie;
+import com.cmchackathon.domain.movie.repository.MovieRepository;
 import com.cmchackathon.domain.ticket.dto.TicketCreateRequest;
 import com.cmchackathon.domain.ticket.dto.TicketResponse;
 import com.cmchackathon.domain.ticket.dto.TicketUpdateRequest;
@@ -9,9 +11,6 @@ import com.cmchackathon.domain.user.entity.User;
 import com.cmchackathon.domain.user.repository.UserRepository;
 import com.cmchackathon.global.exception.BusinessException;
 import com.cmchackathon.global.exception.ErrorCode;
-import com.cmchackathon.movie.entity.Movie;
-import com.cmchackathon.movie.repository.MovieRepository;
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

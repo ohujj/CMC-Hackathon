@@ -4,7 +4,7 @@ import com.cmchackathon.domain.ticket.dto.TicketResponse;
 import com.cmchackathon.domain.ticket.dto.TicketUpdateRequest;
 import com.cmchackathon.domain.user.entity.User;
 import com.cmchackathon.global.entity.BaseEntity;
-import com.cmchackathon.movie.entity.Movie;
+import com.cmchackathon.domain.movie.entity.Movie;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
