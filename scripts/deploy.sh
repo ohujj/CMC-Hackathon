@@ -11,11 +11,11 @@ if [ "$CURRENT" = "blue" ]; then NEXT=green; else NEXT=blue; fi
 echo ">>> current=$CURRENT next=$NEXT"
 
 # 1) 인프라 보장 (Traefik + DB)
-docker compose -f docker-compose.db.yml --env-file .env up -d
+docker-compose -f docker-compose.db.yml --env-file .env up -d
 
 # 2) idle 슬롯 새 이미지로 기동
-docker compose -f docker-compose.${NEXT}.yml --env-file .env pull
-docker compose -f docker-compose.${NEXT}.yml --env-file .env up -d --force-recreate
+docker-compose -f docker-compose.${NEXT}.yml --env-file .env pull
+docker-compose -f docker-compose.${NEXT}.yml --env-file .env up -d --force-recreate
 
 # 3) healthcheck 통과 대기
 STATUS="starting"
@@ -34,5 +34,5 @@ echo ">>> switched to $NEXT"
 sleep 3
 
 # 5) 구 슬롯 정리
-docker compose -f docker-compose.${CURRENT}.yml --env-file .env down
+docker-compose -f docker-compose.${CURRENT}.yml --env-file .env down
 echo ">>> deploy complete: $NEXT is active"

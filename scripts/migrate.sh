@@ -8,5 +8,5 @@ docker rm -f cmc-hackathon cmc-mysql 2>/dev/null || true
 docker network create cmc-net 2>/dev/null || true
 
 # 인프라 + 첫 슬롯 가동
-docker compose -f docker-compose.db.yml --env-file .env up -d
+docker-compose -f docker-compose.db.yml --env-file .env up -d
 bash scripts/deploy.sh
