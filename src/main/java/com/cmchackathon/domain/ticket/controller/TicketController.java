@@ -1,4 +1,4 @@
-package com.cmchackathon.domain.controller;
+package com.cmchackathon.domain.ticket.controller;
 
 import com.cmchackathon.domain.ticket.dto.TicketCreateRequest;
 import com.cmchackathon.domain.ticket.dto.TicketResponse;
