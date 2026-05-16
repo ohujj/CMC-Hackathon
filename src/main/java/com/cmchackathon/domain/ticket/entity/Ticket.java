@@ -1,5 +1,6 @@
 package com.cmchackathon.domain.ticket.entity;
 
+import com.cmchackathon.domain.ticket.dto.TicketResponse;
 import com.cmchackathon.domain.ticket.dto.TicketUpdateRequest;
 import com.cmchackathon.domain.user.entity.User;
 import com.cmchackathon.global.entity.BaseEntity;

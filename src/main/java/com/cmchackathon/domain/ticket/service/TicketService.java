@@ -1,6 +1,7 @@
 package com.cmchackathon.domain.ticket.service;
 
 import com.cmchackathon.domain.ticket.dto.TicketCreateRequest;
+import com.cmchackathon.domain.ticket.dto.TicketResponse;
 import com.cmchackathon.domain.ticket.dto.TicketUpdateRequest;
 import com.cmchackathon.domain.ticket.entity.Ticket;
 import com.cmchackathon.domain.ticket.repository.TicketRepository;
@@ -10,9 +11,12 @@ import com.cmchackathon.global.exception.BusinessException;
 import com.cmchackathon.global.exception.ErrorCode;
 import com.cmchackathon.movie.entity.Movie;
 import com.cmchackathon.movie.repository.MovieRepository;
-import jakarta.transaction.Transactional;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,4 +56,36 @@ public class TicketService {
 
         ticket.update(request);
     }
+
+    public void deleteTicket(Long userId, Long ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
+
+        if (!ticket.getUser().getId().equals(userId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN);
+        }
+
+        ticket.delete();
+    }
+
+    @Transactional(readOnly = true)
+    public List<TicketResponse> getMyTickets(Long userId) {
+        return ticketRepository.findByUserIdAndDeletedAtIsNull(userId)
+                .stream()
+                .map(TicketResponse::from)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public TicketResponse getTicket(Long userId, Long ticketId) {
+        Ticket ticket = ticketRepository.findByIdAndDeletedAtIsNull(ticketId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.TICKET_NOT_FOUND));
+
+        if (!ticket.getUser().getId().equals(userId)) {
+            throw new BusinessException(ErrorCode.FORBIDDEN);
+        }
+
+        return TicketResponse.from(ticket);
+    }
+
 }
