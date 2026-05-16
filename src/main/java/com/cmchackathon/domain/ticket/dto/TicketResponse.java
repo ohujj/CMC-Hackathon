@@ -22,8 +22,9 @@ public class TicketResponse {
     private boolean isLiked;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private long likeCount;
 
-    public static TicketResponse from(Ticket ticket, boolean isLiked) {
+    public static TicketResponse from(Ticket ticket, boolean isLiked, long likeCount) {
         return new TicketResponse(
                 ticket.getId(),
                 ticket.getMovie().getSeq(),
@@ -34,7 +35,9 @@ public class TicketResponse {
                 ticket.isShowYn(),
                 isLiked,
                 ticket.getCreatedAt(),
-                ticket.getUpdatedAt()
+                ticket.getUpdatedAt(),
+                likeCount
         );
     }
+
 }

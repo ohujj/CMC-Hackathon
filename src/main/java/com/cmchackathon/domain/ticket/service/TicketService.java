@@ -96,7 +96,11 @@ public class TicketService {
     public List<TicketResponse> getMyTickets(Long userId) {
         return ticketRepository.findByUserIdAndDeletedAtIsNull(userId)
                 .stream()
-                .map(t -> TicketResponse.from(t, likeRepository.existsByUserIdAndTicketId(userId, t.getId())))
+                .map(t -> TicketResponse.from(
+                        t,
+                        likeRepository.existsByUserIdAndTicketId(userId, t.getId()),
+                        likeRepository.countByTicketId(t.getId())
+                ))
                 .toList();
     }
 
@@ -132,7 +136,11 @@ public class TicketService {
         }
 
         return tickets.stream()
-                .map(t -> TicketResponse.from(t, likeRepository.existsByUserIdAndTicketId(userId, t.getId())))
+                .map(t -> TicketResponse.from(
+                        t,
+                        likeRepository.existsByUserIdAndTicketId(userId, t.getId()),
+                        likeRepository.countByTicketId(t.getId())
+                ))
                 .toList();
     }
 }
