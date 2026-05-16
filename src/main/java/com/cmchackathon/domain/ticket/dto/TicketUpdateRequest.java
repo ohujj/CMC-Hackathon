@@ -14,7 +14,7 @@ public class TicketUpdateRequest {
 
     private LocalTime watchedTime;
 
-    private String cinema;
+    private Integer rating;
 
     private String review;
 }

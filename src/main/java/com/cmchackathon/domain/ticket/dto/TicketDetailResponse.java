@@ -18,7 +18,7 @@ public class TicketDetailResponse {
     private Long movieSeq;
     private LocalDate watchedDate;
     private LocalTime watchedTime;
-    private String cinema;
+    private Integer rating;
     private String review;
     private boolean showYn;
     private LocalDateTime createdAt;
@@ -34,7 +34,7 @@ public class TicketDetailResponse {
                 ticket.getMovie().getSeq(),
                 ticket.getWatchedDate(),
                 ticket.getWatchedTime(),
-                ticket.getCinema(),
+                ticket.getRating(),
                 ticket.getReview(),
                 ticket.isShowYn(),
                 ticket.getCreatedAt(),

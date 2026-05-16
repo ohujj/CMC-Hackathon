@@ -40,7 +40,7 @@ public class Ticket extends BaseEntity {
     private LocalTime watchedTime;
 
     @Column(nullable = false)
-    private String cinema;
+    private Integer rating;
 
     @Column(columnDefinition = "TEXT")
     private String review;
@@ -58,17 +58,17 @@ public class Ticket extends BaseEntity {
     public void update(TicketUpdateRequest request) {
         if (request.getWatchedDate() != null) this.watchedDate = request.getWatchedDate();
         if (request.getWatchedTime() != null) this.watchedTime = request.getWatchedTime();
-        if (request.getCinema() != null) this.cinema = request.getCinema();
+        if (request.getRating() != null) this.rating = request.getRating();
         if (request.getReview() != null) this.review = request.getReview();
     }
 
     @Builder
-    public Ticket(User user, Movie movie, LocalDate watchedDate, LocalTime watchedTime, String cinema, String review) {
+    public Ticket(User user, Movie movie, LocalDate watchedDate, LocalTime watchedTime, Integer rating, String review) {
         this.user = user;
         this.movie = movie;
         this.watchedDate = watchedDate;
         this.watchedTime = watchedTime;
-        this.cinema = cinema;
+        this.rating = rating;
         this.review = review;
     }
 

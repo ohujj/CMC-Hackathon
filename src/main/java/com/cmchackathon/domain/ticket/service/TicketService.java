@@ -47,7 +47,7 @@ public class TicketService {
                 .movie(movie)
                 .watchedDate(request.getWatchedDate())
                 .watchedTime(request.getWatchedTime())
-                .cinema(request.getCinema())
+                .rating(request.getRating())
                 .review(request.getReview())
                 .build();
 

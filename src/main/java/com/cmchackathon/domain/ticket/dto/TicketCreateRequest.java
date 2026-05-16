@@ -21,8 +21,8 @@ public class TicketCreateRequest {
     @NotNull
     private LocalTime watchedTime;
 
-    @NotBlank
-    private String cinema;
+    @NotNull
+    private Integer rating;
 
     private String review;
 }
