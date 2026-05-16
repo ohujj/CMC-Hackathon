@@ -1,5 +1,6 @@
 package com.cmchackathon.domain.collection.service;
 
+import com.cmchackathon.domain.collection.dto.CollectionResponse;
 import com.cmchackathon.domain.collection.entity.Collection;
 import com.cmchackathon.domain.collection.repository.CollectionRepository;
 import com.cmchackathon.domain.ticket.entity.Ticket;
@@ -11,6 +12,8 @@ import com.cmchackathon.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -47,5 +50,13 @@ public class CollectionService {
                 .orElseThrow(() -> new BusinessException(ErrorCode.COLLECTION_NOT_FOUND));
 
         collection.delete();
+    }
+
+    @Transactional(readOnly = true)
+    public List<CollectionResponse> getMyCollections(Long userId) {
+        return collectionRepository.findByUserIdWithDetails(userId)
+                .stream()
+                .map(CollectionResponse::from)
+                .toList();
     }
 }

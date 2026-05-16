@@ -1,5 +1,6 @@
 package com.cmchackathon.domain.collection.controller;
 
+import com.cmchackathon.domain.collection.dto.CollectionResponse;
 import com.cmchackathon.domain.collection.service.CollectionService;
 import com.cmchackathon.global.response.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -8,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "Collection", description = "컬렉션 API")
 @RestController
@@ -33,5 +36,12 @@ public class CollectionController {
             @PathVariable Long ticketId) {
         collectionService.removeCollection(userId, ticketId);
         return ResponseEntity.ok(ApiResponse.success());
+    }
+
+    @Operation(summary = "내 컬렉션 목록 조회")
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<CollectionResponse>>> getMyCollections(
+            @AuthenticationPrincipal Long userId) {
+        return ResponseEntity.ok(ApiResponse.success(collectionService.getMyCollections(userId)));
     }
 }
