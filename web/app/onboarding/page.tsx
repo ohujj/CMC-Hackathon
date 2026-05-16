@@ -50,6 +50,7 @@ export default function OnboardingPage() {
         body: JSON.stringify({ loginId, password, nickname }),
       });
       localStorage.setItem("token", data.accessToken);
+      localStorage.setItem("nickname", nickname);
       router.replace("/");
     } catch (e) {
       setError(e instanceof Error ? e.message : "회원가입에 실패했습니다.");
@@ -71,6 +72,8 @@ export default function OnboardingPage() {
         body: JSON.stringify({ loginId, password }),
       });
       localStorage.setItem("token", data.accessToken);
+      const me = await apiFetch<{ nickname: string }>("/api/users/me");
+      localStorage.setItem("nickname", me.nickname);
       router.replace("/");
     } catch (e) {
       setError(e instanceof Error ? e.message : "로그인에 실패했습니다.");

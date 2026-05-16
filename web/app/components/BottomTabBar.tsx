@@ -3,68 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const tabs = [
+const tabs: { href: string; label: string; icon: React.ReactNode }[] = [
   {
     href: "/",
-    label: "홈",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
-      </svg>
-    ),
-    active: true,
-  },
-  {
-    href: null,
-    label: "기록하기",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M12 5v14M5 12h14" />
-      </svg>
-    ),
-    active: false,
-  },
-  {
-    href: "/theaters",
-    label: "영화관",
-    icon: (
-      <svg
-        width="22"
-        height="22"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <rect x="2" y="7" width="20" height="15" rx="2" />
-        <path d="M17 2l-5 5-5-5" />
-      </svg>
-    ),
-    active: true,
-  },
-  {
-    href: null,
     label: "컬렉션",
     icon: (
       <svg
@@ -77,17 +18,32 @@ const tabs = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <rect x="3" y="3" width="7" height="7" rx="1" />
-        <rect x="14" y="3" width="7" height="7" rx="1" />
-        <rect x="3" y="14" width="7" height="7" rx="1" />
-        <rect x="14" y="14" width="7" height="7" rx="1" />
+        <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
       </svg>
     ),
-    active: false,
   },
   {
-    href: "/me",
-    label: "마이",
+    href: "/record",
+    label: "기록하기",
+    icon: (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 8v8M8 12h8" />
+      </svg>
+    ),
+  },
+  {
+    href: "/feed",
+    label: "티켓보기",
     icon: (
       <svg
         width="22"
@@ -99,11 +55,10 @@ const tabs = [
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
+        <path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+        <circle cx="7" cy="7" r="1.5" fill="currentColor" />
       </svg>
     ),
-    active: true,
   },
 ];
 
@@ -115,28 +70,12 @@ export default function BottomTabBar() {
       <div className="flex">
         {tabs.map((tab) => {
           const isCurrent =
-            tab.href &&
-            (tab.href === "/"
-              ? pathname === "/"
-              : pathname.startsWith(tab.href));
-
-          if (!tab.active) {
-            return (
-              <button
-                key={tab.label}
-                disabled
-                className="flex-1 flex flex-col items-center gap-1 py-2 opacity-35 cursor-not-allowed"
-              >
-                <span className="text-gray-400">{tab.icon}</span>
-                <span className="text-[10px] text-gray-400">{tab.label}</span>
-              </button>
-            );
-          }
+            tab.href === "/" ? pathname === "/" : pathname.startsWith(tab.href);
 
           return (
             <Link
-              key={tab.label}
-              href={tab.href!}
+              key={tab.href}
+              href={tab.href}
               className={`flex-1 flex flex-col items-center gap-1 py-2 transition-colors ${
                 isCurrent ? "text-gray-900" : "text-gray-400"
               }`}
