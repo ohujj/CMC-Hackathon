@@ -1,8 +1,6 @@
 package com.cmchackathon.global.response;
 
-import com.cmchackathon.global.exception.ErrorCode;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 
 @Getter
 public class ApiResponse<T> {
