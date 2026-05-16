@@ -1,6 +1,6 @@
 services:
   app:
-    build: .
+    image: ${DOCKER_USERNAME}/cmc-hackathon
     container_name: cmc-hackathon
     ports:
       - "8080:8080"
@@ -15,21 +15,9 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - JWT_SECRET=${JWT_SECRET}
       - JWT_EXPIRATION=${JWT_EXPIRATION}
+      - SERVER_FORWARD_HEADERS_STRATEGY=NATIVE
     volumes:
       - ./logs:/logs
-    restart: always
-
-  web:
-    build:
-      context: ./web
-      dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_API_URL: http://${SERVER_IP}:8080
-    container_name: cmc-web
-    ports:
-      - "3000:3000"
-    depends_on:
-      - app
     restart: always
 
   db:
