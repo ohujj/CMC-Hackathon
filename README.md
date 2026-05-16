@@ -60,12 +60,16 @@ GitHub ──push main──► GitHub Actions ──► Docker Hub ──SSH─
 
 ```
 src/main/java/com/cmchackathon/
-├── domain/user/        # 사용자 (login/signup)
-├── movie/              # 영화 도메인
-├── theater/            # 영화관 도메인
-├── testApi/            # 헬스체크 등 테스트 엔드포인트
+├── domain/
+│   ├── user/           # 사용자 (로그인, 프로필)
+│   ├── movie/          # 영화 도메인
+│   ├── theater/        # 영화관 도메인
+│   ├── ticket/         # 관람 티켓
+│   ├── collection/     # 티켓 컬렉션 (저장)
+│   ├── like/           # 좋아요
+│   └── comment/        # 댓글
 └── global/
-    ├── config/         # Security, Swagger, Data init
+    ├── config/         # Security, Swagger, DataInitializer
     ├── entity/         # BaseEntity (auditing)
     ├── exception/      # ErrorCode, GlobalExceptionHandler, BusinessException
     ├── jwt/            # JwtProvider, JwtFilter, EntryPoint, AccessDeniedHandler
